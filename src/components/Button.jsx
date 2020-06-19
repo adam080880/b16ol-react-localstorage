@@ -3,31 +3,16 @@ import styledComponent from "styled-components";
 
 import baseColor from "./templates/baseColor";
 
-export default (props) => {
-  let Button = styledComponent.button`
-    background-color: ${baseColor.ctaButton};
+const Button = styledComponent.button`
+  background-color: ${baseColor.ctaButton};
+  color: ${baseColor.ctaButtonText};
+  transition: 0.5s;
+  &:hover {
     color: ${baseColor.ctaButtonText};
-    transition: 0.5s;
-    &:hover {
-      color: ${baseColor.ctaButtonText};
-      background-color: ${baseColor.ctaButtonHover};
-    }
-  `;
-
-  if (props.color) {
-    if (props.color === "danger") {
-      Button = styledComponent.button`
-        background-color: ${baseColor.dangerButton};
-        color: ${baseColor.ctaButtonText};
-        transition: 0.5s;
-        &:hover {
-          color: ${baseColor.ctaButtonText};
-          background-color: ${baseColor.dangetButtonHover};
-        }
-      `;
-    }
+    background-color: ${baseColor.ctaButtonHover};
   }
-
+`;
+export default (props) => {
   return (
     <Button
       {...props}

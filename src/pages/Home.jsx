@@ -30,16 +30,15 @@ export default class Home extends React.Component {
               <Link to="/profile">
                 <Button>Profile</Button>
               </Link>
-              <Button
+              <button
                 onClick={(e) => {
                   localStorage.setItem("user_auth", JSON.stringify({}));
                   this.props.history.push("/login");
                 }}
-                className="ml-2"
-                color="danger"
+                className="btn btn-danger px-3 py-2 font-weight-bold ml-2"
               >
                 Logout
-              </Button>
+              </button>
             </div>
           </div>
         </Card>
