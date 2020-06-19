@@ -33,7 +33,7 @@ export default class Home extends React.Component {
               <Button
                 onClick={(e) => {
                   localStorage.setItem("user_auth", JSON.stringify({}));
-                  this.props.history.push("/");
+                  this.props.history.push("/login");
                 }}
                 className="ml-2"
                 color="danger"
