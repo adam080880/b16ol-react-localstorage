@@ -67,33 +67,43 @@ export default class Profile extends React.Component {
           )
         ) {
           new Promise((resolve, reject) => {
-            resolve(
-              users.map((val) => {
-                if (val.username === this.state.oldUsername) {
-                  localStorage.setItem(
-                    "user_auth",
-                    JSON.stringify({ data: { username, password, name } })
-                  );
-                  this.setState({
-                    oldUsername: username,
-                    oldPassword: password,
-                    oldName: name,
-                  });
+            this.checkExist(username).then((res2) => {
+              if (res2 && username !== this.state.oldUsername) {
+                reject("Username is exists");
+              } else {
+                resolve(
+                  users.map((val) => {
+                    if (val.username === this.state.oldUsername) {
+                      localStorage.setItem(
+                        "user_auth",
+                        JSON.stringify({ data: { username, password, name } })
+                      );
+                      this.setState({
+                        oldUsername: username,
+                        oldPassword: password,
+                        oldName: name,
+                      });
 
-                  return {
-                    username,
-                    password,
-                    name,
-                  };
-                } else {
-                  return val;
-                }
-              })
-            );
-          }).then((res) => {
-            Swal.fire("Success", "Success edited profile", "success");
-            localStorage.setItem("users", JSON.stringify(res));
-          });
+                      return {
+                        username,
+                        password,
+                        name,
+                      };
+                    } else {
+                      return val;
+                    }
+                  })
+                );
+              }
+            });
+          })
+            .then((res) => {
+              Swal.fire("Success", "Success edited profile", "success");
+              localStorage.setItem("users", JSON.stringify(res));
+            })
+            .catch((reject) => {
+              Swal.fire("Error", "Username has been exist", "error");
+            });
         } else {
           Swal.fire(
             "Error",
